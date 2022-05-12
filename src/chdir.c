@@ -21,9 +21,10 @@
  */
 
 #include <errno.h>
-#include <lauxlib.h>
 #include <string.h>
 #include <unistd.h>
+// lua
+#include <lua_errno.h>
 
 static int chdir_lua(lua_State *L)
 {
@@ -36,14 +37,14 @@ static int chdir_lua(lua_State *L)
 
     // got error
     lua_pushboolean(L, 0);
-    lua_pushstring(L, strerror(errno));
-    lua_pushinteger(L, errno);
+    lua_errno_new(L, errno, "chdir");
 
-    return 3;
+    return 2;
 }
 
 LUALIB_API int luaopen_chdir(lua_State *L)
 {
+    lua_errno_loadlib(L);
     lua_pushcfunction(L, chdir_lua);
     return 1;
 }
