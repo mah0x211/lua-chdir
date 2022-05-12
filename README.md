@@ -24,5 +24,4 @@ change current working directory.
 **Returns**
 
 - `ok:boolean`: `true` on success.
-- `err:string`: error message on failure.
-- `eno:integer`: error number.
+- `err:error`: `error` object from [errno](https://github.com/mah0x211/lua-errno) on failure.

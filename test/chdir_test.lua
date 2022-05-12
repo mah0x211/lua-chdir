@@ -11,10 +11,9 @@ local function test_chdir()
     assert.equal(getcwd(), cwd .. '/test')
 
     -- test that return an error
-    local ok, err, eno = chdir('foo/bar/baz')
+    local ok, err = chdir('foo/bar/baz')
     assert.is_false(ok)
-    assert.equal(err, errno.ENOENT.message)
-    assert.equal(errno[eno], errno.ENOENT)
+    assert.equal(err.code, errno.ENOENT.code)
 
     -- test that throws an error
     err = assert.throws(chdir, {})
